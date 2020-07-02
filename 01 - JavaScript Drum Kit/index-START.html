@@ -66,12 +66,13 @@
     const key = document.querySelector(`.key[data-key="${e.keyCode}"]`)
     //console.log(audio)
     if(!audio) return;// stop the function from running all togethem
-
+    
+    key.classList.add('playing');
     audio.currentTime = 0; //rewind to the start
     audio.play();
 
     //console.log(key)
-    key.classList.add('playing');
+    
   }
 
   function removeTransition(e){
