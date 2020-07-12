@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Key Detection</title>
+  <script type="text/javascript" src="https://www.cornify.com/js/cornify.js"></script>
+</head>
+<body>
+<script>
+
+const key = {
+  up: "ArrowUp",
+  down: "ArrowDown",
+  left: "ArrowLeft",
+  rigth: "ArrowRight",
+}
+
+function key_(k){
+  switch(k){
+    case 'u':
+      r = key.up;
+      break;
+    case 'd':
+      r = key.down;
+      break;
+    case 'l':
+      r = key.left;
+      break;
+    case 'r':
+      r = key.rigth;
+      break;
+    default:
+      r = ''
+  }
+  return r;
+}
+
+function keySequence(s){
+  const r = []
+  let bar = false;
+  s.split('')
+    .forEach(e => {
+      if(e === "/"){
+        bar = true;
+      }
+      else{
+        if(bar){
+          r.push(key_(e));
+        }
+        else{
+          r.push(e)
+        }
+        bar = false;
+      }
+    });
+  return r;
+}
+
+const pressed = [];
+const secretCodeCode = '/u/u/d/d/l/r/l/rab';
+const secretCode = keySequence(secretCodeCode);
+//  '/u/u/d/d/l/r/l/r*ab'
+//  key.up + key.down
+
+window.addEventListener('keyup',(e) => {
+  pressed.push(e.key);
+  pressed.splice(-secretCode - 1, pressed.length - secretCode.length);
+  //newPressed = pressed.slice(-secretCode.length);
+  
+  //if(pressed.join('') === secretCode){
+  if(pressed.join('').includes(secretCode.join(''))){
+    console.log('Hello World');
+    cornify_add();
+  }
+  
+});
+
+/*
+"ArrowUp"
+"ArrowDown",
+"ArrowLeft",
+"ArrowRight",
+*/
+</script>
+</body>
+</html>
